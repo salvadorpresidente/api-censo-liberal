@@ -8,6 +8,7 @@ const https = require("https");
 const fs = require("fs");
 
 const app = express();
+app.set('trust proxy', 1); 
 app.use(cors());
 app.use(helmet());
 
