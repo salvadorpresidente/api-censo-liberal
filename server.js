@@ -1,4 +1,3 @@
-// server.js – Censo Partido Liberal 2025 (versión estable)
 const express = require("express");
 const cors = require("cors");
 const duckdb = require("duckdb");
@@ -8,10 +7,19 @@ const https = require("https");
 const fs = require("fs");
 
 const app = express();
-app.set('trust proxy', 1); 
-app.use(cors());
-app.use(helmet());
+app.set('trust proxy', 1);
 
+// CORS corregido para Wix (acepta GET desde cualquier origen)
+const corsOptions = {
+  origin: '*',
+  methods: ['GET'],
+  allowedHeaders: ['Content-Type', 'Accept']
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Manejo de preflight
+
+app.use(helmet());
 // Limitar consultas por IP
 app.use(rateLimit({ windowMs: 60 * 1000, max: 15 }));
 
