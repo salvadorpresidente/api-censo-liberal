@@ -17,8 +17,6 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Manejo de preflight
-
 app.use(helmet());
 // Limitar consultas por IP
 app.use(rateLimit({ windowMs: 60 * 1000, max: 15 }));
